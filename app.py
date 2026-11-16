@@ -2,6 +2,10 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return jsonify({"message": "Welcome to the Event Management API!"})
+
 # Simulated data
 class Event:
     def __init__(self, id, title):
@@ -16,6 +20,12 @@ events = [
     Event(1, "Tech Meetup"),
     Event(2, "Python Workshop")
 ]
+
+
+@app.route("/events", methods=["GET"])
+def get_events():
+    return jsonify([event.to_dict() for event in events])
+
 
 # TODO: Task 1 - Define the Problem
 # Create a new event from JSON input
